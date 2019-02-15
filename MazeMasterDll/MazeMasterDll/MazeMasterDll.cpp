@@ -6,8 +6,9 @@
 int** maze;
 int mazeWidth;
 int mazeHeight;
-int* xpositions;
-int* ypositions;
+int xpositions[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+int ypositions[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+int nextPosIndex = 0;
 
 ///Returns Our Names
 __declspec(dllexport) char* GetTeam() 
@@ -36,8 +37,13 @@ __declspec(dllexport) void SetMaze(const int** data, int width, int height)
 	}
 }
 
-//Sets xpos and ypos then ends
+///Sets xpos and ypos then ends
 __declspec(dllexport) void GetNextPosition(int& xpos, int& ypos)
 {
+	//Goes to next point then uses modulus to determine if it needs to loop
+	nextPosIndex++;
+	nextPosIndex = nextPosIndex % 10;
 
+	xpos = xpositions[nextPosIndex];
+	ypos = ypositions[nextPosIndex];
 }
