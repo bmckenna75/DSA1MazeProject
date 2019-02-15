@@ -44,7 +44,12 @@ __declspec(dllexport) void SetMaze(const int** data, int width, int height)
 ///Sets xpos and ypos then ends
 __declspec(dllexport) void GetNextPosition(int& xpos, int& ypos)
 {
+	//Goes to next point then uses modulus to determine if it needs to loop
+	nextPosIndex++;
+	nextPosIndex = nextPosIndex % 10;
 
+	xpos = xpositions[nextPosIndex];
+	ypos = ypositions[nextPosIndex];
 }
 
 __declspec(dllexport) int** GetMaze(int&& width, int&& height)
