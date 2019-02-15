@@ -8,6 +8,8 @@ int mazeWidth;
 int mazeHeight;
 int* xpositions;
 int* ypositions;
+int playerXpos;
+int playerYpos;
 
 ///Returns Our Names
 __declspec(dllexport) char* GetTeam() 
@@ -40,4 +42,57 @@ __declspec(dllexport) void SetMaze(const int** data, int width, int height)
 __declspec(dllexport) void GetNextPosition(int& xpos, int& ypos)
 {
 
+}
+
+__declspec(dllexport) int** GetMaze(int&& width, int&& height)
+{
+
+}
+
+//Sets the starting location for the player - Saves the X and Y values
+__declspec(dllexport) void SetStart(int x, int y)
+{
+	playerXpos = x;
+	playerYpos = y;
+}
+
+//Sets the starting location for the player. Return the saved x and y start locations.
+//If x and y locations have not been saved, return -1 for both
+__declspec(dllexport) void GetStart(int& xPos, int& yPos)
+{
+	xPos = playerXpos;
+	yPos = playerYpos;
+
+	// References the global address of the players specific X & Y pos;
+	if (playerXpos == NULL) {
+		xPos = -1;
+	}
+	// References the global address of the players specific X & Y pos;
+	if (playerYpos == NULL) {
+		yPos = -1;
+	}
+}
+
+//Sets the end location for the player - Saves the X and Y values
+__declspec(dllexport) void SetEnd(int x, int y)
+{
+	playerXpos = x;
+	playerYpos = y;
+}
+
+//Sets the ending location for the player. Return the saved x and y end locations.
+//If x and y locations have not been saved, return -1 for both
+__declspec(dllexport) void GetEnd(int& xPos, int& yPos)
+{
+	xPos = playerXpos;
+	yPos = playerYpos;
+
+	// References the global address of the players specific X & Y pos;
+	if (playerXpos == NULL) {
+		xPos = -1;
+	}
+	// References the global address of the players specific X & Y pos;
+	if (playerYpos == NULL) {
+		yPos = -1;
+	}
 }
