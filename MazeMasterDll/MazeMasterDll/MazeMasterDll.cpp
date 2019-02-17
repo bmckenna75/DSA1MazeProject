@@ -9,8 +9,6 @@ int mazeHeight;
 int xpositions[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 int ypositions[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 int nextPosIndex = 0;
-int* xpositions;
-int* ypositions;
 int playerXpos;
 int playerYpos;
 
