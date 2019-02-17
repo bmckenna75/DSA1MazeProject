@@ -54,18 +54,20 @@ __declspec(dllexport) void GetNextPosition(int& xpos, int& ypos)
 
 __declspec(dllexport) int** GetMaze(int&& width, int&& height)
 {
-
+	width = mazeWidth;
+	height = mazeHeight;
+	return maze;
 }
 
-//Sets the starting location for the player - Saves the X and Y values
+///Sets the starting location for the player - Saves the X and Y values
 __declspec(dllexport) void SetStart(int x, int y)
 {
 	playerXpos = x;
 	playerYpos = y;
 }
 
-//Sets the starting location for the player. Return the saved x and y start locations.
-//If x and y locations have not been saved, return -1 for both
+///Sets the starting location for the player. Return the saved x and y start locations.
+///If x and y locations have not been saved, return -1 for both
 __declspec(dllexport) void GetStart(int& xPos, int& yPos)
 {
 	xPos = playerXpos;
@@ -81,15 +83,15 @@ __declspec(dllexport) void GetStart(int& xPos, int& yPos)
 	}
 }
 
-//Sets the end location for the player - Saves the X and Y values
+///Sets the end location for the player - Saves the X and Y values
 __declspec(dllexport) void SetEnd(int x, int y)
 {
 	playerXpos = x;
 	playerYpos = y;
 }
 
-//Sets the ending location for the player. Return the saved x and y end locations.
-//If x and y locations have not been saved, return -1 for both
+///Sets the ending location for the player. Return the saved x and y end locations.
+///If x and y locations have not been saved, return -1 for both
 __declspec(dllexport) void GetEnd(int& xPos, int& yPos)
 {
 	xPos = playerXpos;
