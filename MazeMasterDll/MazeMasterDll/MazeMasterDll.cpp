@@ -72,11 +72,11 @@ __declspec(dllexport) void GetStart(int& xPos, int& yPos)
 	yPos = playerYpos;
 
 	// References the global address of the players specific X & Y pos;
-	if (playerXpos == NULL) {
+	if (playerXpos == NULL || playerXpos <= 0) {
 		xPos = -1;
 	}
 	// References the global address of the players specific X & Y pos;
-	if (playerYpos == NULL) {
+	if (playerYpos == NULL || playerYpos <= 0) {
 		yPos = -1;
 	}
 }
@@ -96,11 +96,11 @@ __declspec(dllexport) void GetEnd(int& xPos, int& yPos)
 	yPos = playerYpos;
 
 	// References the global address of the players specific X & Y pos;
-	if (playerXpos == NULL) {
+	if (playerXpos == NULL || playerXpos <= 0) {
 		xPos = -1;
 	}
 	// References the global address of the players specific X & Y pos;
-	if (playerYpos == NULL) {
+	if (playerYpos == NULL || playerYpos <= 0) {
 		yPos = -1;
 	}
 }
