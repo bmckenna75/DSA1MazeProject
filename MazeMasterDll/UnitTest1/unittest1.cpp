@@ -77,13 +77,13 @@ namespace UnitTest1
 			int yPos = 2;
 			int& xPoint = xPos;
 			int& yPoint = yPos;
-			bool changeValue = false;
+			bool changeValue = true;
 
 			GetStart(xPoint, yPoint);
 
 			if (xPoint != 1 || yPoint != 1) 
 			{
-				changeValue = true;
+				changeValue = false;
 			}
 
 			Assert::IsTrue(changeValue);
@@ -100,13 +100,13 @@ namespace UnitTest1
 			int yPos = 2;
 			int& xPoint = xPos;
 			int& yPoint = yPos;
-			bool changeValue = false;
+			bool changeValue = true;
 
 			GetEnd(xPoint, yPoint);
 
 			if (xPoint != 3 || yPoint != 3)
 			{
-				changeValue = true;
+				changeValue = false;
 			}
 
 			Assert::IsTrue(changeValue);
