@@ -24,11 +24,18 @@ namespace UnitTest1
 		TEST_METHOD(TestGetTeam)
 		{
 			char* names = GetTeam();
-			Assert::AreEqual(names, "Lei McKenna and Jacob Marcovecchio");
+			char* namesCorrect = "Lei McKenna and Jacob Marcovecchio";
+			Assert::AreEqual(names, namesCorrect);
 		}
 		TEST_METHOD(TestSetMaze)
 		{
 			int** maze;
+			maze[5] = { };
+			for (int i = 0; i < 5; i++)
+			{
+				maze[i][5] = { };
+			}
+
 			for (int i = 0; i < 5; i++)
 			{
 				for (int j = 0; j < 5; j++)
@@ -77,13 +84,13 @@ namespace UnitTest1
 			int yPos = 2;
 			int& xPoint = xPos;
 			int& yPoint = yPos;
-			bool changeValue = false;
+			bool changeValue = true;
 
 			GetStart(xPoint, yPoint);
 
 			if (xPoint != 1 || yPoint != 1) 
 			{
-				changeValue = true;
+				changeValue = false;
 			}
 
 			Assert::IsTrue(changeValue);
@@ -100,13 +107,13 @@ namespace UnitTest1
 			int yPos = 2;
 			int& xPoint = xPos;
 			int& yPoint = yPos;
-			bool changeValue = false;
+			bool changeValue = true;
 
 			GetEnd(xPoint, yPoint);
 
 			if (xPoint != 3 || yPoint != 3)
 			{
-				changeValue = true;
+				changeValue = false;
 			}
 
 			Assert::IsTrue(changeValue);

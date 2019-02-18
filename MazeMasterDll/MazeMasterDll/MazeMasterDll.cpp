@@ -15,7 +15,7 @@ int playerYpos;
 ///Returns Our Names
 __declspec(dllexport) char* GetTeam() 
 {
-	char namesToReturn[50] = "Lei McKenna and Jacob Marcovecchio";
+	char* namesToReturn = (char*) "Lei McKenna and Jacob Marcovecchio";
 	return namesToReturn;
 }
 
