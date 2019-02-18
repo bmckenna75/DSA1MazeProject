@@ -52,7 +52,7 @@ __declspec(dllexport) void GetNextPosition(int& xpos, int& ypos)
 	ypos = ypositions[nextPosIndex];
 }
 
-__declspec(dllexport) int** GetMaze(int&& width, int&& height)
+__declspec(dllexport) int** GetMaze(int& width, int& height)
 {
 	width = mazeWidth;
 	height = mazeHeight;
