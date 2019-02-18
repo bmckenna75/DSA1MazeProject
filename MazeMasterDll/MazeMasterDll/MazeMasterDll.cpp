@@ -25,7 +25,7 @@ __declspec(dllexport) void SetMaze(const int** data, int width, int height)
 	mazeWidth = width;
 	mazeHeight = height;
 
-	maze[width][height] = { };
+	maze[width][height];
 
 	//loops through to assign maze vars
 	for (int w = 0; w < width; w++)
