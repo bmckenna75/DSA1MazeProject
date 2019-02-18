@@ -25,17 +25,11 @@ namespace UnitTest1
 		{
 			char* names = GetTeam();
 			char* namesCorrect = "Lei McKenna and Jacob Marcovecchio";
-			Assert::AreEqual(names, namesCorrect);
+			Assert::IsTrue(strcmp(names, namesCorrect) == 0);
 		}
 		TEST_METHOD(TestSetMaze)
 		{
-			int** maze;
-			maze[5] = { };
-			for (int i = 0; i < 5; i++)
-			{
-				maze[i][5] = { };
-			}
-
+			int maze[5][5];
 			for (int i = 0; i < 5; i++)
 			{
 				for (int j = 0; j < 5; j++)
