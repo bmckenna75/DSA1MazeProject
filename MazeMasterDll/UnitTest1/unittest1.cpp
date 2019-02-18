@@ -67,19 +67,49 @@ namespace UnitTest1
 		}
 		TEST_METHOD(TestSetStart)
 		{
-
+			int xpos = 1;
+			int ypos = 1;
+			SetStart(xpos, ypos);
 		}
 		TEST_METHOD(TestGetStart)
 		{
+			int xPos = 2;
+			int yPos = 2;
+			int& xPoint = xPos;
+			int& yPoint = yPos;
+			bool changeValue = false;
 
+			GetStart(xPoint, yPoint);
+
+			if (xPoint != 1 || yPoint != 1) 
+			{
+				changeValue = true;
+			}
+
+			Assert::IsTrue(changeValue);
 		}
 		TEST_METHOD(TestSetEnd)
 		{
-
+			int xpos = 3;
+			int ypos = 3;
+			SetEnd(xpos, ypos);
 		}
 		TEST_METHOD(TestGetEnd)
 		{
+			int xPos = 2;
+			int yPos = 2;
+			int& xPoint = xPos;
+			int& yPoint = yPos;
+			bool changeValue = false;
 
+			GetEnd(xPoint, yPoint);
+
+			if (xPoint != 3 || yPoint != 3)
+			{
+				changeValue = true;
+			}
+
+			Assert::IsTrue(changeValue);
 		}
 
 	};
