@@ -29,7 +29,13 @@ namespace UnitTest1
 		}
 		TEST_METHOD(TestSetMaze)
 		{
-			int maze[5][5];
+			int** maze = (int**) new int*[5];
+
+			for (int i = 0; i < 5; i++) 
+			{
+				maze[i] = new int[5];
+			}
+
 			for (int i = 0; i < 5; i++)
 			{
 				for (int j = 0; j < 5; j++)
