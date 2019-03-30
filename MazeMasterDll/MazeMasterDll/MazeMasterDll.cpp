@@ -20,8 +20,15 @@ __declspec(dllexport) char* GetTeam()
 }
 
 ///Sets maze based on the passed in values
-__declspec(dllexport) void SetMaze(const int** data, int width, int height)
+__declspec(dllexport) bool SetMaze(const int** data, int width, int height)
 {
+	//Conditions of which the data does not load in correctly. 
+	if (width <= 0 || height <= 0)
+	{
+		//std::cout << "Enter in a width and height that is greater than or equal to 1 \n";
+		return false;
+	}
+
 	mazeWidth = width;
 	mazeHeight = height;
 
@@ -54,25 +61,55 @@ __declspec(dllexport) void GetNextPosition(int& xpos, int& ypos)
 
 __declspec(dllexport) int** GetMaze(int& width, int& height)
 {
+	// Conditions of which the maze has not been set. 
+	if (mazeWidth == NULL || mazeHeight == NULL)
+	{
+		return nullptr;
+	}
 	width = mazeWidth;
 	height = mazeHeight;
 	return maze;
 }
 
 ///Sets the starting location for the player - Saves the X and Y values
-__declspec(dllexport) void SetStart(int x, int y)
+__declspec(dllexport) bool SetStart(int x, int y)
 {
+	// False Condition 1 - mazeWidth and Height failed to be set.
+	if (mazeWidth == NULL || mazeHeight == NULL)
+		return false;
+
+	// False Confition 2 - x starting value is out of bounds.
+	if (x < 0 || x >= mazeWidth)
+		return false;
+
+	// False Condition 3 - y starting value is out of bounds.
+	if (y < 0 || y >= mazeHeight)
+		return false;
+
 	playerXpos = x;
 	playerYpos = y;
+
+	return true;
 }
 
 ///Sets the starting location for the player. Return the saved x and y start locations.
 ///If x and y locations have not been saved, return -1 for both
-__declspec(dllexport) void GetStart(int& xPos, int& yPos)
+__declspec(dllexport) bool GetStart(int& xPos, int& yPos)
 {
+	// References the global address of the players specific X & Y pos;
+	if (playerXpos == NULL || playerXpos <= 0)
+		return false;
+
+	// References the global address of the players specific X & Y pos;
+	if (playerYpos == NULL || playerYpos <= 0)
+		return false;
+
+	// If the data is not invalid, then set the X and Y position and return true.
 	xPos = playerXpos;
 	yPos = playerYpos;
+	return true;
 
+	/*
 	// References the global address of the players specific X & Y pos;
 	if (playerXpos == NULL || playerXpos <= 0) {
 		xPos = -1;
@@ -81,28 +118,44 @@ __declspec(dllexport) void GetStart(int& xPos, int& yPos)
 	if (playerYpos == NULL || playerYpos <= 0) {
 		yPos = -1;
 	}
+	*/
 }
 
 ///Sets the end location for the player - Saves the X and Y values
-__declspec(dllexport) void SetEnd(int x, int y)
+__declspec(dllexport) bool SetEnd(int x, int y)
 {
+	// False Condition 1 - mazeWidth and Height failed to be set.
+	if (mazeWidth == NULL || mazeHeight == NULL)
+		return false;
+
+	// False Confition 2 - x starting value is out of bounds.
+	if (x < 0 || x >= mazeWidth)
+		return false;
+
+	// False Condition 3 - y starting value is out of bounds.
+	if (y < 0 || y >= mazeHeight)
+		return false;
+
+	// If the false conditions do not apply, then the data being saved must be valid.
 	playerXpos = x;
 	playerYpos = y;
+	return true;
 }
 
 ///Sets the ending location for the player. Return the saved x and y end locations.
 ///If x and y locations have not been saved, return -1 for both
-__declspec(dllexport) void GetEnd(int& xPos, int& yPos)
+__declspec(dllexport) bool GetEnd(int& xPos, int& yPos)
 {
-	xPos = playerXpos;
-	yPos = playerYpos;
+	// References the global address of the players specific X & Y pos;
+	if (playerXpos == NULL || playerXpos <= 0)
+		return false;
 
 	// References the global address of the players specific X & Y pos;
-	if (playerXpos == NULL || playerXpos <= 0) {
-		xPos = -1;
-	}
-	// References the global address of the players specific X & Y pos;
-	if (playerYpos == NULL || playerYpos <= 0) {
-		yPos = -1;
-	}
+	if (playerYpos == NULL || playerYpos <= 0)
+		return false;
+
+	// If the data is not invalid, then set the X and Y position and return true.
+	xPos = playerXpos;
+	yPos = playerYpos;
+	return true;
 }
