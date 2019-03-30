@@ -11,6 +11,8 @@ int ypositions[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 int nextPosIndex = 0;
 int playerXpos;
 int playerYpos;
+int startXpos;
+int startYpos;
 
 ///Returns Our Names - Milestone 2 Check
 __declspec(dllexport) char* GetTeam() 
@@ -89,6 +91,11 @@ __declspec(dllexport) bool SetStart(int x, int y)
 	if (y < 0 || y >= mazeHeight)
 		return false;
 
+	//sets start position for later reference
+	startXpos = x;
+	startYpos = y;
+
+	//sets player position
 	playerXpos = x;
 	playerYpos = y;
 
@@ -164,6 +171,19 @@ __declspec(dllexport) bool GetEnd(int& xPos, int& yPos)
 	xPos = playerXpos;
 	yPos = playerYpos;
 	return true;
+}
+
+///Moves player back to starting position
+__declspec(dllexport) bool Restart()
+{
+	if ((startXpos == NULL || startXpos <= 0) || (startYpos == NULL || startYpos <= 0))
+		return false;
+
+
+	//this sets the players location and the start point
+	SetStart(startXpos, startYpos);
+	return true;
+
 }
 
 ///Need to implement the return function
