@@ -12,14 +12,14 @@ int nextPosIndex = 0;
 int playerXpos;
 int playerYpos;
 
-///Returns Our Names
+///Returns Our Names - Milestone 2 Check
 __declspec(dllexport) char* GetTeam() 
 {
 	char* namesToReturn = (char*) "Lei McKenna and Jacob Marcovecchio";
 	return namesToReturn;
 }
 
-///Sets maze based on the passed in values
+///Sets maze based on the passed in values - Milestone 2 Incomplete
 __declspec(dllexport) bool SetMaze(const int** data, int width, int height)
 {
 	//Conditions of which the data does not load in correctly. 
@@ -49,6 +49,7 @@ __declspec(dllexport) bool SetMaze(const int** data, int width, int height)
 }
 
 ///Sets xpos and ypos then ends
+///Milestone 2 - Incomplete
 __declspec(dllexport) void GetNextPosition(int& xpos, int& ypos)
 {
 	//Goes to next point then uses modulus to determine if it needs to loop
@@ -59,6 +60,7 @@ __declspec(dllexport) void GetNextPosition(int& xpos, int& ypos)
 	ypos = ypositions[nextPosIndex];
 }
 
+///Returns information about the maze - Milestone 2 Test
 __declspec(dllexport) int** GetMaze(int& width, int& height)
 {
 	// Conditions of which the maze has not been set. 
@@ -72,6 +74,7 @@ __declspec(dllexport) int** GetMaze(int& width, int& height)
 }
 
 ///Sets the starting location for the player - Saves the X and Y values
+///Milestone 2 Test
 __declspec(dllexport) bool SetStart(int x, int y)
 {
 	// False Condition 1 - mazeWidth and Height failed to be set.
@@ -93,7 +96,8 @@ __declspec(dllexport) bool SetStart(int x, int y)
 }
 
 ///Sets the starting location for the player. Return the saved x and y start locations.
-///If x and y locations have not been saved, return -1 for both
+///If x and y locations have not been saved, return nothing
+///Milestone 2 - Incomplete
 __declspec(dllexport) bool GetStart(int& xPos, int& yPos)
 {
 	// References the global address of the players specific X & Y pos;
@@ -122,6 +126,7 @@ __declspec(dllexport) bool GetStart(int& xPos, int& yPos)
 }
 
 ///Sets the end location for the player - Saves the X and Y values
+///Milestone 2 - Test
 __declspec(dllexport) bool SetEnd(int x, int y)
 {
 	// False Condition 1 - mazeWidth and Height failed to be set.
@@ -144,6 +149,7 @@ __declspec(dllexport) bool SetEnd(int x, int y)
 
 ///Sets the ending location for the player. Return the saved x and y end locations.
 ///If x and y locations have not been saved, return -1 for both
+/// Milestone 2 - Test
 __declspec(dllexport) bool GetEnd(int& xPos, int& yPos)
 {
 	// References the global address of the players specific X & Y pos;
@@ -159,3 +165,5 @@ __declspec(dllexport) bool GetEnd(int& xPos, int& yPos)
 	yPos = playerYpos;
 	return true;
 }
+
+///Need to implement the return function
