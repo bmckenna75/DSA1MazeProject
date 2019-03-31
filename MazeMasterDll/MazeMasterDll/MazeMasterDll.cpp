@@ -13,6 +13,8 @@ int playerXpos;
 int playerYpos;
 int startXpos;
 int startYpos;
+int endXpos;
+int endYpos;
 
 ///Returns Our Names - Milestone 2 Check
 __declspec(dllexport) char* GetTeam() 
@@ -48,12 +50,14 @@ __declspec(dllexport) bool SetMaze(const int** data, int width, int height)
 		}
 		//std::cout << "w " << i << " complete";
 	}
+	return true;
 }
 
 ///Sets xpos and ypos then ends
 ///Milestone 2 - Incomplete
-__declspec(dllexport) void GetNextPosition(int& xpos, int& ypos)
+__declspec(dllexport) bool GetNextPosition(int& xpos, int& ypos)
 {
+	
 	//Goes to next point then uses modulus to determine if it needs to loop
 	nextPosIndex++;
 	nextPosIndex = nextPosIndex % 10;
@@ -108,16 +112,16 @@ __declspec(dllexport) bool SetStart(int x, int y)
 __declspec(dllexport) bool GetStart(int& xPos, int& yPos)
 {
 	// References the global address of the players specific X & Y pos;
-	if (playerXpos == NULL || playerXpos <= 0)
+	if (startXpos == NULL || startXpos <= 0)
 		return false;
 
 	// References the global address of the players specific X & Y pos;
-	if (playerYpos == NULL || playerYpos <= 0)
+	if (startYpos == NULL || startYpos <= 0)
 		return false;
 
 	// If the data is not invalid, then set the X and Y position and return true.
-	xPos = playerXpos;
-	yPos = playerYpos;
+	xPos = startXpos;
+	yPos = startYpos;
 	return true;
 
 	/*
@@ -149,8 +153,8 @@ __declspec(dllexport) bool SetEnd(int x, int y)
 		return false;
 
 	// If the false conditions do not apply, then the data being saved must be valid.
-	playerXpos = x;
-	playerYpos = y;
+	endXpos = x;
+	endYpos = y;
 	return true;
 }
 
@@ -160,16 +164,16 @@ __declspec(dllexport) bool SetEnd(int x, int y)
 __declspec(dllexport) bool GetEnd(int& xPos, int& yPos)
 {
 	// References the global address of the players specific X & Y pos;
-	if (playerXpos == NULL || playerXpos <= 0)
+	if (endXpos == NULL || endXpos <= 0)
 		return false;
 
 	// References the global address of the players specific X & Y pos;
-	if (playerYpos == NULL || playerYpos <= 0)
+	if (endYpos == NULL || endYpos <= 0)
 		return false;
 
 	// If the data is not invalid, then set the X and Y position and return true.
-	xPos = playerXpos;
-	yPos = playerYpos;
+	xPos = endXpos;
+	yPos = endYpos;
 	return true;
 }
 
@@ -178,7 +182,6 @@ __declspec(dllexport) bool Restart()
 {
 	if ((startXpos == NULL || startXpos <= 0) || (startYpos == NULL || startYpos <= 0))
 		return false;
-
 
 	//this sets the players location and the start point
 	SetStart(startXpos, startYpos);
