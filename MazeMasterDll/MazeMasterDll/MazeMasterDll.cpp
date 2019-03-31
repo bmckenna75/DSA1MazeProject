@@ -2,7 +2,10 @@
 //
 
 #include "stdafx.h"
+#include "Graph.h"
+#include "vertex.h"
 
+Graph vertexGraph;
 int** maze;
 int mazeWidth;
 int mazeHeight;
@@ -50,6 +53,9 @@ __declspec(dllexport) bool SetMaze(const int** data, int width, int height)
 		}
 		//std::cout << "w " << i << " complete";
 	}
+
+	vertexGraph = Graph(data, width, height);
+
 	return true;
 }
 

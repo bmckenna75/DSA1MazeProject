@@ -18,6 +18,7 @@ Graph::Graph(const int** mazedata, int mazeWidth, int mazeHeight)
 			if (mazedata[w][h] == 0)
 			{
 				total += 1;
+				
 			}
 			//std::cout << w << ',' << h << "complete";
 		}
