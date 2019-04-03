@@ -1,11 +1,9 @@
 #include "stdafx.h"
 #include "vertex.h"
 
-
-vertex::vertex(int xPosition, int yPosition)
+vertex::vertex()
 {
-	xPos = xPosition;
-	yPos = yPosition;
+
 }
 
 

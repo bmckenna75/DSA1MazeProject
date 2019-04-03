@@ -39,6 +39,9 @@ __declspec(dllexport) bool SetMaze(const int** data, int width, int height)
 	mazeWidth = width;
 	mazeHeight = height;
 
+	// This needs to become a graph
+
+	/*
 	maze = new int* [mazeWidth];
 
 	//loops through to assign maze vars
@@ -53,6 +56,8 @@ __declspec(dllexport) bool SetMaze(const int** data, int width, int height)
 		}
 		//std::cout << "w " << i << " complete";
 	}
+
+	*/
 
 	vertexGraph = Graph(data, width, height);
 
