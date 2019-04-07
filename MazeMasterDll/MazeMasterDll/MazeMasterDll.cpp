@@ -39,9 +39,8 @@ __declspec(dllexport) bool SetMaze(const int** data, int width, int height)
 	mazeWidth = width;
 	mazeHeight = height;
 
-	// This needs to become a graph
+	// Build int data set
 
-	/*
 	maze = new int* [mazeWidth];
 
 	//loops through to assign maze vars
@@ -57,8 +56,7 @@ __declspec(dllexport) bool SetMaze(const int** data, int width, int height)
 		//std::cout << "w " << i << " complete";
 	}
 
-	*/
-
+	// Builds Graph
 	vertexGraph = Graph(data, width, height);
 
 	return true;
@@ -68,13 +66,30 @@ __declspec(dllexport) bool SetMaze(const int** data, int width, int height)
 ///Milestone 2 - Incomplete
 __declspec(dllexport) bool GetNextPosition(int& xpos, int& ypos)
 {
+	// If the path from the start to the end has not been found yet...
+	if (vertexGraph.isPathFound == false)
+	{
+		// Create the path!
+		vertexGraph.StaticPathFind(startXpos, startYpos, endXpos, endYpos);
+	}
+
+	//Sets the x and y pos to the current vertex in the static path
+	xpos = vertexGraph.staticPath[nextPosIndex].xPos;
+	ypos = vertexGraph.staticPath[nextPosIndex].yPos;
+
+	// Increment so the next position is the next in the set path of verticies!
+	nextPosIndex++;
+
+
+	// Milestone 1 Way of completing things
+	
+	/*------------------------
 	
 	//Goes to next point then uses modulus to determine if it needs to loop
 	nextPosIndex++;
 	nextPosIndex = nextPosIndex % 10;
 
-	xpos = xpositions[nextPosIndex];
-	ypos = ypositions[nextPosIndex];
+	//----------------------	*/
 }
 
 ///Returns information about the maze - Milestone 2 Test
@@ -194,7 +209,9 @@ __declspec(dllexport) bool Restart()
 	if ((startXpos == NULL || startXpos <= 0) || (startYpos == NULL || startYpos <= 0))
 		return false;
 
-	//this sets the players location and the start point
+	// Reset the 
+	vertexGraph.StaticResetPath();
+	nextPosIndex = 0;
 	SetStart(startXpos, startYpos);
 	return true;
 
