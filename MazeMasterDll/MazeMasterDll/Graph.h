@@ -8,6 +8,7 @@ class Graph
 public:
 
 	// Constructors
+	Graph();
 	Graph(const int** mazedata, int mazeWidth, int mazeHeight);
 	~Graph();
 
@@ -24,15 +25,16 @@ public:
 	// Methods
 	void StaticPathFind(int startPosX, int startPosY, int endPosX, int endPosY);	// Finds the whole path once
 	void StaticResetPath();	// Resets the path fewwfw
+	int pathSize;		// Keeps track of the Size of the Path Size
 private:
 
 	// Variables
 	int mazeWidth;		// stores maze Width 
 	int mazeHeight;		// stores maze Height
-	int pathSize;		// determines the Size of the Path Size
 
 	vertex* IncreaseArraySize(vertex* oldArray, int &oldArraySize);	// Helper function that increases the size of a passed in array
-	std::vector<vertex>AdjacentWalkableSquares(int x, int y);
+	std::vector<vertex>AdjacentWalkableSquares(int x, int y);		// Get's Adjacent Squars
+	int FScorePosition(std::vector<vertex> thisList);				// Get's the position of the lowest fValue in the list
 	bool NotInList(std::vector<vertex> thisList, vertex thisVertex);
 
 	int ComputeHScore(int x, int y, int targetX, int targetY);	// Computes the H Score of the compares two Vertex based on sent in values

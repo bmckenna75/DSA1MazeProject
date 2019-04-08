@@ -5,7 +5,13 @@
 #include <vector>
 #include <algorithm>
 
-// Only Constructor needed
+// Defualt Constructor
+Graph::Graph()
+{
+
+}
+
+// Constructor
 Graph::Graph(const int** mazedata, int mazeWidth, int mazeHeight)
 {
 	// Sets maze width and height
@@ -14,6 +20,7 @@ Graph::Graph(const int** mazedata, int mazeWidth, int mazeHeight)
 
 	// Sets internal value for path size, checking if path is built, and x/y pos
 	isPathFound = false;
+	pathSize = 0;
 	xPathPos = 0;
 	yPathPos = 0;
 
@@ -60,17 +67,18 @@ void Graph::StaticPathFind(int startPosX, int startPosY, int endPosX, int endPos
 	// Start by adding the orginal 
 	openList.push_back(start);
 
-	while (openList.size > 0)
+	while (openList.size() > 0)
 	{
 
 		//Get the vertex with the lowest F score
-		
+		int lowestFScorePlace = FScorePosition(openList);
+		current = openList.at(lowestFScorePlace);
 
 		// Add the current vertex to the closed list - infering it's now been checked
 		closeList.push_back(current);
 
 		// Remove it from the open vertex
-		openList.pop_back();
+		openList.erase(openList.begin() + lowestFScorePlace -1);
 
 		// Check to see if the item is the destination
 		if (closeList.back().xPos == target.xPos && closeList.back().yPos == target.yPos)
@@ -119,7 +127,10 @@ void Graph::StaticPathFind(int startPosX, int startPosY, int endPosX, int endPos
 	{
 		staticPath[i].xPos = closeList.at(i).xPos;
 		staticPath[i].yPos = closeList.at(i).yPos;
+		pathSize++;
 	}
+
+	pathSize = pathSize - 1;
 }
 
 void Graph::StaticResetPath()
@@ -127,6 +138,7 @@ void Graph::StaticResetPath()
 	// Reset Values as needed
 	xPathPos = 0;
 	yPathPos = 0;
+	pathSize = 0;
 	isPathFound = false;
 	
 	/*
@@ -146,7 +158,7 @@ bool Graph::NotInList(std::vector<vertex> thisList, vertex thisVertex)
 {
 	using namespace std;
 
-	for (int i = 0; i < thisList.size; i++)
+	for (int i = 0; i < thisList.size(); i++)
 	{
 		if(thisList.at(i).xPos == thisVertex.xPos && 
 			thisList.at(i).yPos == thisVertex.yPos)
@@ -154,6 +166,34 @@ bool Graph::NotInList(std::vector<vertex> thisList, vertex thisVertex)
 	}
 
 	return true;
+}
+
+// Returns the position of the vertex with the lowest F Score in the vector
+int Graph::FScorePosition(std::vector<vertex> thisList)
+{
+	using namespace std;
+
+	int fScoreMin = INT_MAX;
+	int position = -1;
+
+	for (int i = 0; i < thisList.size(); i++)
+	{
+		if (position = -1)
+		{
+			fScoreMin = thisList.at(i).f_Priority;
+			position = 0;
+		}
+		else
+		{
+			if (thisList.at(i).f_Priority <= fScoreMin)
+			{
+				fScoreMin = thisList.at(i).f_Priority;
+				position = i;
+			}
+		}
+	}
+
+	return position;
 }
 
 std::vector<vertex> Graph::AdjacentWalkableSquares(int x, int y)

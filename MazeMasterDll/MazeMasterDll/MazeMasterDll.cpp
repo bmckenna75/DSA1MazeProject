@@ -77,8 +77,15 @@ __declspec(dllexport) bool GetNextPosition(int& xpos, int& ypos)
 	xpos = vertexGraph.staticPath[nextPosIndex].xPos;
 	ypos = vertexGraph.staticPath[nextPosIndex].yPos;
 
+	if (nextPosIndex == vertexGraph.pathSize)
+	{
+		return true;
+	}
+
 	// Increment so the next position is the next in the set path of verticies!
 	nextPosIndex++;
+
+	return false;
 
 
 	// Milestone 1 Way of completing things
