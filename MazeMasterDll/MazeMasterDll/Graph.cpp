@@ -44,8 +44,7 @@ Graph::Graph(const int** mazedata, int mazeWidth, int mazeHeight)
 	// was looking at this to help. may not be neccessary yet though https://www.geeksforgeeks.org/graph-and-its-representations/
 }
 
-//Builds a path 
-
+//Builds a static path which the main DLL will only need to increment index to navigate and gather infromation from
 void Graph::StaticPathFind(int startPosX, int startPosY, int endPosX, int endPosY)
 {
 	using namespace std;
@@ -84,6 +83,7 @@ void Graph::StaticPathFind(int startPosX, int startPosY, int endPosX, int endPos
 		if (closeList.back().xPos == target.xPos && closeList.back().yPos == target.yPos)
 			break;
 
+		// Gets the location of any adjSquares to the path
 		vector<vertex> adjSqaures = AdjacentWalkableSquares(current.xPos, current.yPos);
 		g++;
 
@@ -120,9 +120,12 @@ void Graph::StaticPathFind(int startPosX, int startPosY, int endPosX, int endPos
 		}
 	}
 
+	// Deletes whatever the previous static path was holding
 	delete[] staticPath;
+	// Creates a new Static Path That will be filled with the locations of where the objects needs to navigate
 	staticPath = new vertex[closeList.size()];
 
+	// Fills the path based on the vector being used & increments the path size to tell the DLL when no more data needs to be recieved.
 	for (int i = 0; i < closeList.size(); i++)
 	{
 		staticPath[i].xPos = closeList.at(i).xPos;
@@ -130,9 +133,11 @@ void Graph::StaticPathFind(int startPosX, int startPosY, int endPosX, int endPos
 		pathSize++;
 	}
 
+	// Adjusts the path size to function from an array
 	pathSize = pathSize - 1;
 }
 
+// Resets all neccessary Values
 void Graph::StaticResetPath()
 {
 	// Reset Values as needed
@@ -148,6 +153,7 @@ void Graph::StaticResetPath()
 	*/
 }
 
+// Helper Function for the A* Calculation that calculates the H score
 int Graph::ComputeHScore(int x, int y, int targetX, int targetY)
 {
 	return abs(targetX - x) + abs(targetY - y);
@@ -173,9 +179,11 @@ int Graph::FScorePosition(std::vector<vertex> thisList)
 {
 	using namespace std;
 
+	// Set's Dummy Values as the maximum in a min and a negative position
 	int fScoreMin = INT_MAX;
 	int position = -1;
 
+	// Loops through and keeps track of where the lowest value is 
 	for (int i = 0; i < thisList.size(); i++)
 	{
 		if (position = -1)
@@ -193,9 +201,12 @@ int Graph::FScorePosition(std::vector<vertex> thisList)
 		}
 	}
 
+	// Returns where the lowest value is
 	return position;
 }
 
+// Gets the adjacent Walkable Squares which should have it's next values checked. 
+// Checks if positionns and datatype are both valid.
 std::vector<vertex> Graph::AdjacentWalkableSquares(int x, int y)
 {
 	using namespace std;
@@ -267,6 +278,7 @@ vertex* Graph::IncreaseArraySize(vertex* oldArray, int &oldArraySize)
 	return oldArray;
 }
 
+// Deconstructor
 Graph::~Graph()
 {
 	delete[] staticPath;
