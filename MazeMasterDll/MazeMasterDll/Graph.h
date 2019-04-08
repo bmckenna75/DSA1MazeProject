@@ -1,5 +1,7 @@
 #pragma once
 #include "vertex.h"
+#include <list> 
+#include <vector>
 
 class Graph
 {
@@ -11,7 +13,8 @@ public:
 
 	// Variables
 	vertex** vMaze;		// Unique Set of Vertex used to define the graph
-	vertex* staticPath;	// Unique list of Verticies that create the path
+	vertex* staticPath;	// Unique list of Verticies that create the path - outdated
+
 
 	bool isPathFound;	// Checks to see if the path has been built already.
 	int xPathPos;		// Returns the xPosistion of the next place to navigate on the map
@@ -29,6 +32,8 @@ private:
 	int pathSize;		// determines the Size of the Path Size
 
 	vertex* IncreaseArraySize(vertex* oldArray, int &oldArraySize);	// Helper function that increases the size of a passed in array
+	std::vector<vertex>AdjacentWalkableSquares(int x, int y);
+	bool NotInList(std::vector<vertex> thisList, vertex thisVertex);
 
 	int ComputeHScore(int x, int y, int targetX, int targetY);	// Computes the H Score of the compares two Vertex based on sent in values
 	

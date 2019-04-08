@@ -3,6 +3,7 @@ class vertex
 {
 public:
 	vertex();
+	vertex(int x, int y);
 	~vertex();
 	int yPos;				// Y
 	int xPos;				// X
