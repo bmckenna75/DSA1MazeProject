@@ -281,5 +281,5 @@ vertex* Graph::IncreaseArraySize(vertex* oldArray, int &oldArraySize)
 // Deconstructor
 Graph::~Graph()
 {
-	delete[] staticPath;
+	//delete[] staticPath;
 }
