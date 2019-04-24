@@ -87,7 +87,7 @@ void Graph::StaticPathFind(int startPosX, int startPosY, int endPosX, int endPos
 		vector<vertex> adjSqaures = AdjacentWalkableSquares(current.xPos, current.yPos);
 		g++;
 
-		for (int i = 0; i < adjSqaures.size(); i++)
+		for (int i = 0; i < (int) adjSqaures.size(); i++)
 		{
 			// If the object is already in the closed list, ignore it.
 			if (NotInList(closeList, adjSqaures.at(i)) == false)
@@ -126,7 +126,7 @@ void Graph::StaticPathFind(int startPosX, int startPosY, int endPosX, int endPos
 	staticPath = new vertex[closeList.size()];
 
 	// Fills the path based on the vector being used & increments the path size to tell the DLL when no more data needs to be recieved.
-	for (int i = 0; i < closeList.size(); i++)
+	for (int i = 0; i < (int) closeList.size(); i++)
 	{
 		staticPath[i].xPos = closeList.at(i).xPos;
 		staticPath[i].yPos = closeList.at(i).yPos;
@@ -164,7 +164,7 @@ bool Graph::NotInList(std::vector<vertex> thisList, vertex thisVertex)
 {
 	using namespace std;
 
-	for (int i = 0; i < thisList.size(); i++)
+	for (int i = 0; i < (int) thisList.size(); i++)
 	{
 		if(thisList.at(i).xPos == thisVertex.xPos && 
 			thisList.at(i).yPos == thisVertex.yPos)
@@ -184,7 +184,7 @@ int Graph::FScorePosition(std::vector<vertex> thisList)
 	int position = -1;
 
 	// Loops through and keeps track of where the lowest value is 
-	for (int i = 0; i < thisList.size(); i++)
+	for (int i = 0; i < (int)thisList.size(); i++)
 	{
 		if (position = -1)
 		{
