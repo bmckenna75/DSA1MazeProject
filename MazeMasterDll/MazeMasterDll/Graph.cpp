@@ -76,8 +76,8 @@ void Graph::StaticPathFind(int startPosX, int startPosY, int endPosX, int endPos
 		// Add the current vertex to the closed list - infering it's now been checked
 		closeList.push_back(current);
 
-		// Remove it from the open vertex
-		openList.erase(openList.begin() + lowestFScorePlace -1);
+		// Remove it from the open vertex - Current Line of Error
+		openList.erase(openList.begin() + lowestFScorePlace);
 
 		// Check to see if the item is the destination
 		if (closeList.back().xPos == target.xPos && closeList.back().yPos == target.yPos)
@@ -107,6 +107,7 @@ void Graph::StaticPathFind(int startPosX, int startPosY, int endPosX, int endPos
 			}
 			else
 			{
+				// Error in Calculating!!!!!!!!
 				// test if using the current G score makes the adjacent square's F score
 				// lower, if yes update the parent because it means it's a better path
 				if (g + adjSqaures.at(i).h_Estimate < adjSqaures.at(i).f_Priority)
@@ -120,7 +121,8 @@ void Graph::StaticPathFind(int startPosX, int startPosY, int endPosX, int endPos
 		}
 	}
 
-	// Deletes whatever the previous static path was holding
+	// LINE 123 - ADDRESS ERROR!!!!!
+	// Deletes whatever the previous static path was holding 
 	delete[] staticPath;
 	// Creates a new Static Path That will be filled with the locations of where the objects needs to navigate
 	staticPath = new vertex[closeList.size()];
@@ -186,7 +188,7 @@ int Graph::FScorePosition(std::vector<vertex> thisList)
 	// Loops through and keeps track of where the lowest value is 
 	for (int i = 0; i < (int)thisList.size(); i++)
 	{
-		if (position = -1)
+		if (position == -1)
 		{
 			fScoreMin = thisList.at(i).f_Priority;
 			position = 0;
