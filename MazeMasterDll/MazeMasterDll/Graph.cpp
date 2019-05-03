@@ -24,6 +24,9 @@ Graph::Graph(const int** mazedata, int mazeWidth, int mazeHeight)
 	xPathPos = 0;
 	yPathPos = 0;
 
+	// Builds a blank static path to be deleted. 
+	this->staticPath = new vertex[3];
+
 	// Builds the map in the form of vertex
 
 	vMaze = new vertex*[mazeWidth];
@@ -137,6 +140,7 @@ void Graph::StaticPathFind(int startPosX, int startPosY, int endPosX, int endPos
 
 	// Adjusts the path size to function from an array
 	pathSize = pathSize - 1;
+	isPathFound = true;
 }
 
 // Resets all neccessary Values
@@ -158,7 +162,7 @@ void Graph::StaticResetPath()
 // Helper Function for the A* Calculation that calculates the H score
 int Graph::ComputeHScore(int x, int y, int targetX, int targetY)
 {
-	return abs(targetX - x) + abs(targetY - y);
+	return (int)pow((targetX - x), 2.0) + (int)pow((targetY - y), 2.0);
 }
 
 // Returns true if the point is not in the Vector / Returns False if it is already in 
