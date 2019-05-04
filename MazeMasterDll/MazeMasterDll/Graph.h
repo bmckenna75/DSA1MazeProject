@@ -37,7 +37,7 @@ private:
 	int FScorePosition(std::vector<vertex> thisList);				// Get's the position of the lowest fValue in the list
 	bool NotInList(std::vector<vertex> thisList, vertex thisVertex);
 
-	int ComputeHScore(int x, int y, int targetX, int targetY);	// Computes the H Score of the compares two Vertex based on sent in values
+	int ComputeHScore(int x, int y, int targetX, int targetY, int terrainValue);	// Computes the H Score of the compares two Vertex based on sent in values
 	
 };
 

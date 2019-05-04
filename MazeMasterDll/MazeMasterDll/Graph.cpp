@@ -101,7 +101,7 @@ void Graph::StaticPathFind(int startPosX, int startPosY, int endPosX, int endPos
 			{
 				// Set all it's values
 				adjSqaures.at(i).g_Movement = g;
-				adjSqaures.at(i).h_Estimate = ComputeHScore(adjSqaures.at(i).xPos, adjSqaures.at(i).yPos, target.xPos, target.yPos);
+				adjSqaures.at(i).h_Estimate = ComputeHScore(adjSqaures.at(i).xPos, adjSqaures.at(i).yPos, target.xPos, target.yPos, adjSqaures.at(i).dataType);
 				adjSqaures.at(i).f_Priority = adjSqaures.at(i).g_Movement + adjSqaures.at(i).h_Estimate;
 				adjSqaures.at(i).parentVertex = &current;
 
@@ -160,9 +160,9 @@ void Graph::StaticResetPath()
 }
 
 // Helper Function for the A* Calculation that calculates the H score
-int Graph::ComputeHScore(int x, int y, int targetX, int targetY)
+int Graph::ComputeHScore(int x, int y, int targetX, int targetY, int terrainValue)
 {
-	return (int)pow((targetX - x), 2.0) + (int)pow((targetY - y), 2.0);
+	return (int)pow((targetX - x), 2.0) + (int)pow((targetY - y), 2.0) * (int)pow(terrainValue, 2.0);
 }
 
 // Returns true if the point is not in the Vector / Returns False if it is already in 
