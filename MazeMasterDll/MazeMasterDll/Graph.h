@@ -32,7 +32,7 @@ private:
 	int mazeWidth;		// stores maze Width 
 	int mazeHeight;		// stores maze Height
 
-	vertex* IncreaseArraySize(vertex* oldArray, int &oldArraySize);	// Helper function that increases the size of a passed in array
+	int AllocateMemory(int length);									// Allocates Memory for the Static Stack - Returns Int of new size
 	std::vector<vertex>AdjacentWalkableSquares(int x, int y);		// Get's Adjacent Squars
 	int FScorePosition(std::vector<vertex> thisList);				// Get's the position of the lowest fValue in the list
 	bool NotInList(std::vector<vertex> thisList, vertex thisVertex);

@@ -71,20 +71,20 @@ extern "C" __declspec(dllexport) bool GetNextPosition(int& xpos, int& ypos)
 	{
 		// Create the path!
 		vertexGraph.StaticPathFind(startXpos, startYpos, endXpos, endYpos);
+		nextPosIndex = vertexGraph.pathSize;
 	}
-
-	nextPosIndex++;
 
 	//Sets the x and y pos to the current vertex in the static path
 	xpos = vertexGraph.staticPath[nextPosIndex].xPos;
 	ypos = vertexGraph.staticPath[nextPosIndex].yPos;
 
-	if (nextPosIndex == vertexGraph.pathSize)
+	if (nextPosIndex == 0)
 	{
 		return false;
 	}
 
 	// Increment so the next position is the next in the set path of verticies!
+	nextPosIndex--;
 
 	return true;
 

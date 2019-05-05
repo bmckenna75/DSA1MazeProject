@@ -8,7 +8,7 @@
 // Defualt Constructor
 Graph::Graph()
 {
-
+	this->staticPath = new vertex[3];
 }
 
 // Constructor
@@ -103,7 +103,7 @@ void Graph::StaticPathFind(int startPosX, int startPosY, int endPosX, int endPos
 				adjSqaures.at(i).g_Movement = g;
 				adjSqaures.at(i).h_Estimate = ComputeHScore(adjSqaures.at(i).xPos, adjSqaures.at(i).yPos, target.xPos, target.yPos, adjSqaures.at(i).dataType);
 				adjSqaures.at(i).f_Priority = adjSqaures.at(i).g_Movement + adjSqaures.at(i).h_Estimate;
-				adjSqaures.at(i).parentVertex = &current;
+				adjSqaures.at(i).parentVertex = new vertex(current);
 
 				// and add it to the beginning of the open list
 				openList.insert(openList.begin(), adjSqaures.at(i));
@@ -117,29 +117,72 @@ void Graph::StaticPathFind(int startPosX, int startPosY, int endPosX, int endPos
 				{
 					adjSqaures.at(i).g_Movement = g;
 					adjSqaures.at(i).f_Priority = adjSqaures.at(i).g_Movement + adjSqaures.at(i).h_Estimate;
-					adjSqaures.at(i).parentVertex = &current;
+					adjSqaures.at(i).parentVertex = new vertex(current);
 				}
 			}
 
 		}
 	}
 
-	// LINE 123 - ADDRESS ERROR!!!!!
 	// Deletes whatever the previous static path was holding 
 	delete[] staticPath;
-	// Creates a new Static Path That will be filled with the locations of where the objects needs to navigate
-	staticPath = new vertex[closeList.size()];
+	// Creates a new Static Path That will be filled with the locations of where the objects needs to navigate.
+	int staticRealSize = 5;
+	staticPath = new vertex[staticRealSize];
+
+	current = closeList.back();
+	bool run = true;
+
+	while (run)
+	{
+		// Resize Array if needed
+		if (pathSize == staticRealSize)
+		{
+			staticRealSize = AllocateMemory(staticRealSize);
+		}
+
+		staticPath[pathSize].xPos = current.xPos;
+		staticPath[pathSize].yPos = current.yPos;
+
+		if (current.parentVertex != NULL)
+		{
+			current = *current.parentVertex;
+			pathSize++;
+		}
+		else 
+		{
+			pathSize++;
+			if (pathSize == staticRealSize)
+			{
+				staticRealSize = AllocateMemory(staticRealSize);
+			}
+
+			staticPath[pathSize].xPos = start.xPos;
+			staticPath[pathSize].yPos = start.yPos;
+			run = false;
+		}
+	}
+		/*
 
 	// Fills the path based on the vector being used & increments the path size to tell the DLL when no more data needs to be recieved.
-	for (int i = 0; i < (int) closeList.size(); i++)
+	for (int i = 0; i <  closeList.size(); i++)
 	{
+		if (pathSize == staticRealSize)
+		{
+			staticRealSize = AllocateMemory(staticRealSize);
+		}
+
 		staticPath[i].xPos = closeList.at(i).xPos;
 		staticPath[i].yPos = closeList.at(i).yPos;
+		
+		
 		pathSize++;
 	}
 
+
 	// Adjusts the path size to function from an array
-	pathSize = pathSize - 1;
+	//pathSize = pathSize - 1;
+	*/
 	isPathFound = true;
 }
 
@@ -199,7 +242,7 @@ int Graph::FScorePosition(std::vector<vertex> thisList)
 		}
 		else
 		{
-			if (thisList.at(i).f_Priority <= fScoreMin)
+			if (thisList.at(i).f_Priority < fScoreMin)
 			{
 				fScoreMin = thisList.at(i).f_Priority;
 				position = i;
@@ -260,32 +303,26 @@ std::vector<vertex> Graph::AdjacentWalkableSquares(int x, int y)
 }
 
 // Function that takes in an array and the size of the known array, doubles the size & creates a newly sized array
-vertex* Graph::IncreaseArraySize(vertex* oldArray, int &oldArraySize)
+int Graph::AllocateMemory(int length)
 {
-	// Creates a temparary array
-	vertex* tempArray = new vertex[(oldArraySize*2)];
+	vertex *newArray = new vertex[length + 5];
 
-	for (int i = 0; i < oldArraySize; i++)
+	for (int i = 0; i < length; i++)
 	{
-		// Copies Data Over
-		tempArray[i] = oldArray[i];
+		newArray[i] = staticPath[i];
 	}
 
-	// Deletes the array currently stored to prevent memory leaks
-	delete[] oldArray;
+	delete[] staticPath;
 
-	// Sets the past in array as the newly created temp array
-	oldArray = tempArray;
+	staticPath = newArray;
 
-	// doubles the size of the array
-	oldArraySize = oldArraySize * 2;
+	length = length + 5;
 
-	// returns the array
-	return oldArray;
-}
+	return length;
+};
 
 // Deconstructor
 Graph::~Graph()
 {
-	//delete[] staticPath;
+
 }
